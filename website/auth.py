@@ -9,7 +9,7 @@ auth = Blueprint('auth', __name__)
 
 
 
-url = 'https://apicrev3.azurewebsites.net/clientes'
+url = 'https://elisandroapicre.azurewebsites.net/clientes'
 
 
 

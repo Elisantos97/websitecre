@@ -10,30 +10,21 @@ views = Blueprint('views', __name__)
 
 
 
-# url ='https://apiprojectcre.azurewebsites.net/clientes'
-# url1='https://apiprojectcre.azurewebsites.net/produtos'
-# url2='https://apiprojectcre.azurewebsites.net/categorias'
-# url3='https://apiprojectcre.azurewebsites.net/subcategorias'
-# url4='https://apiprojectcre.azurewebsites.net/imagens'
-# url5='https://apiprojectcre.azurewebsites.net/produto_relacionado'
-# url6='https://apiprojectcre.azurewebsites.net/carrinho'
-# url7='https://apiprojectcre.azurewebsites.net/conta'
-# url8='https://apiprojectcre.azurewebsites.net/vendas'
 
-url ='https://apicrev3.azurewebsites.net/clientes'
-url1='https://apicrev3.azurewebsites.net/produtos'
-url2='https://apicrev3.azurewebsites.net/categorias'
-url3='https://apicrev3.azurewebsites.net/subcategorias'
-url4='https://apicrev3.azurewebsites.net/imagens'
-url5='https://apicrev3.azurewebsites.net/produto_relacionado'
-url6='https://apicrev3.azurewebsites.net/carrinho'
-url7='https://apicrev3.azurewebsites.net/conta'
-url8='https://apicrev3.azurewebsites.net/vendas'
-url9='https://apicrev3.azurewebsites.net/alterar'
-url10='https://apicrev3.azurewebsites.net/resposta'
-url11='https://apicrev3.azurewebsites.net/desafio'
-url12='https://apicrev3.azurewebsites.net/foto'
-url13='https://apicrev3.azurewebsites.net/respostafotos'
+url ='https://elisandroapicre.azurewebsites.net/clientes'
+url1='https://elisandroapicre.azurewebsites.net/produtos'
+url2='https://elisandroapicre.azurewebsites.net/categorias'
+url3='https://elisandroapicre.azurewebsites.net/subcategorias'
+url4='https://elisandroapicre.azurewebsites.net/imagens'
+url5='https://elisandroapicre.azurewebsites.net/produto_relacionado'
+url6='https://elisandroapicre.azurewebsites.net/carrinho'
+url7='https://elisandroapicre.azurewebsites.net/conta'
+url8='https://elisandroapicre.azurewebsites.net/vendas'
+url9='https://elisandroapicre.azurewebsites.net/alterar'
+url10='https://elisandroapicre.azurewebsites.net/resposta'
+url11='https://elisandroapicre.azurewebsites.net/desafio'
+url12='https://elisandroapicre.azurewebsites.net/foto'
+url13='https://elisandroapicre.azurewebsites.net/respostafotos'
 
 
 @views.route("/",methods=['GET'])
@@ -177,8 +168,8 @@ def adicionar_carrinho():
 
 
 
-        dados = {"idProduto": idProduto,"idCliente": idCliente, "quantidade": quantidade, "precoUnitario": precoUnitario, "precoTotal": precoTotal}
-
+        dados = {"idProduto": int(idProduto),"idCliente": idCliente, "quantidade": int(quantidade), "precoUnitario": 10, "precoTotal": int(precoTotal)}
+        print(dados)
         api=requests.post(url6, json=dados)
 
         return redirect(url_for("views.produto", id=idProduto))
@@ -195,14 +186,13 @@ def submit_data():
     idCliente= request.args.get('idCliente')
     print(idCliente)
 
-    try:
+    
 
-        count = requests.get('https://apicrev3.azurewebsites.net/soma_produto/'+str(idCliente))
+    count = requests.get('https://elisandroapicre.azurewebsites.net/soma_produto/'+str(idCliente))
         
-        print(count.json())
-        return str(count.json())
-    except:
-        return("")
+    print(count.json())
+    return str(count.json())
+    
     
   
 
@@ -336,24 +326,28 @@ def area_pessoal():
 @views.route('/dados', methods=['GET', 'POST'])
 def dados():
 
-    dados={}
+    if "email" in session:
 
-    clientes=requests.get(url)
-    for cliente in clientes.json():
-        if cliente.get("emailCliente")==session.get("email"):
-            dados["nome"]=cliente.get("nomeCliente")
-            dados["email"]=cliente.get("emailCliente")
-            dados["telefone"]=cliente.get("telefoneCliente")
-            dados["telemovel"]=cliente.get("telemovelCliente")
-            dados["nif"]=cliente.get("nifCliente")
-            dados["morada"]=cliente.get("moradaCliente")
-            dados["codigopostal"]=cliente.get("codigopostalCliente")
-            dados["cidade"]=cliente.get("cidadeCliente")
+        dados={}
 
-    print(dados)
+        clientes=requests.get(url)
+        for cliente in clientes.json():
+            if cliente.get("emailCliente")==session.get("email"):
+                dados["nome"]=cliente.get("nomeCliente")
+                dados["email"]=cliente.get("emailCliente")
+                dados["telefone"]=cliente.get("telefoneCliente")
+                dados["telemovel"]=cliente.get("telemovelCliente")
+                dados["nif"]=cliente.get("nifCliente")
+                dados["morada"]=cliente.get("moradaCliente")
+                dados["codigopostal"]=cliente.get("codigopostalCliente")
+                dados["cidade"]=cliente.get("cidadeCliente")
 
+        print(dados)
+
+        
+        return render_template("dados.html", dados=dados)
     
-    return render_template("dados.html", dados=dados)
+    return redirect(url_for("auth.login"))
 
 @views.route('/historico', methods=['GET', 'POST'])
 def historico():
