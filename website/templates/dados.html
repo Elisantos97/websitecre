@@ -1,0 +1,53 @@
+{% extends "area_pessoal.html" %}
+{% block title%}produtos{% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+<style>
+    body {font-family: "Times New Roman", Georgia, Serif;}
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Playfair Display";
+      letter-spacing: 5px;
+    }
+    </style>
+    </head>
+        <body>
+    
+            <div class="w3-row w3-padding-64" id="about">
+                <h3>Dados pessoais</h3>
+                <div class="w3-col m6 w3-padding-large">
+                                    <!-- Contact Section -->
+                    <div class="w3-container w3-padding-64">
+                        <p class="w3-input w3-padding-16" >Nome: {{dados.get('nome')}}</p>
+                        <p class="w3-input w3-padding-16" >Telefone: {{dados.get('telefone')}}</p>
+                        <p class="w3-input w3-padding-16" > NIF: {{dados.get('nif')}}</p>
+                        <p class="w3-input w3-padding-16" >Código Postal: {{dados.get('codigopostal')}}</p>
+                    </div>
+            
+                </div>
+            
+                <div class="w3-col m6 w3-padding-large">
+                    <div class="w3-container w3-padding-64">
+                        <p class="w3-input w3-padding-16" >Email: {{dados.get('email')}}</p>
+                        <p class="w3-input w3-padding-16" >Telemóvel: {{dados.get('telemovel')}}</p>
+                        <p class="w3-input w3-padding-16" >Morada: {{dados.get('morada')}}</p>
+                        <p class="w3-input w3-padding-16" >Cidade: {{dados.get('cidade')}}</p>
+                    </div>
+            
+                </div>
+              </div>
+    
+    
+    
+  
+    
+        </body>
+
+{% endblock %}

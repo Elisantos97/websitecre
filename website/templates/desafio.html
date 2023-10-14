@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+{% block title%}home{% endblock %}
+
+{% include "menu.html"%}
+
+{% block content %}
+
+
+<body class="w3-light-grey">
+
+    <!-- Page Container -->
+    <div class="" style="margin-top:80px;">
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+            <!-- Left Column -->
+            <div class="w3-third w3-card w3-white">
+                <!-- ################################################### -->
+                <!-- Slideshow Header -->
+                <div class="w3-container" id="apartment">
+                    <div class="w3-display-container mySlides">
+                        <img src="{{desafio.get('imagemProduto')}}" style="width:100%;margin-bottom:-6px">
+                    </div>
+                    
+                </div>
+
+                <!-- ################################################### -->
+                <!-- End Left Column -->
+            </div>
+            <!-- Right Column -->
+            <div class="w3-twothird">
+                
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+
+                    <!-- Contact -->
+                    <div class="w3-container" id="contact" style="padding-top:90px;">
+                        <form action="{{url_for('views.resposta')}}" method="POST">
+  
+                           
+                                <p>Identifica o produto na imagem:</p>
+                                <label>
+                                    <input type="radio" name="resposta" value="opcao1">
+                                    {{desafio.get("opcao1")}}
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="resposta" value="opcao2">
+                                    {{desafio.get("opcao2")}}
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="resposta" value="opcao3">
+                                    {{desafio.get("opcao3")}}
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="resposta" value="opcao4">
+                                    {{desafio.get("opcao4")}}
+                                </label><br>
+                                <input type="hidden" name="idDesafio" value="{{desafio.get("idDesafio")}}">
+                                <input type="hidden" name="imagem" value="{{desafio.get('imagemProduto')}}">
+                       
+                        
+                                <input type="submit" value="Enviar">
+                     
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+{% endblock %}

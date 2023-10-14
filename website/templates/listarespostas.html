@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+{% block title%}home{% endblock %}
+
+{% include "menu.html"%}
+
+{% block content %}
+
+
+<body class="w3-light-grey">
+
+    <!-- Page Container -->
+    <div class="" style="margin-top:80px; padding:80px;">
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+            <!-- Left Column -->
+            <div class="w3-third w3-card w3-white">
+                <!-- ################################################### -->
+                <!-- Slideshow Header -->
+                <div class="w3-container" id="apartment">
+                    <div class="w3-display-container mySlides">
+                        <img src="{{foto.get('foto')}}" style="width:100%;margin-bottom:-6px">
+                    </div>
+                    
+                </div>
+
+                <!-- ################################################### -->
+                <!-- End Left Column -->
+            </div>
+            <!-- Right Column -->
+            <div class="w3-twothird">
+                
+                <div class="w3-container w3-card w3-white w3-margin-bottom">
+
+                    <h3>Lista de respostas</h3>
+
+                    <!-- Contact -->
+                    <div class="w3-container" id="contact" style="padding-top:90px;">
+
+                        {% for resposta in lista_respostas %}
+
+                            <h4>{{resposta}}</h4>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+{% endblock %}

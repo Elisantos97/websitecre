@@ -1,0 +1,49 @@
+
+
+{% extends "area_pessoal.html" %}
+{% block title%}produtos{% endblock %}
+
+
+{% block content %}
+
+
+<div class="w3-content" style="max-width:1100px; margin-bottom:400px;" >
+
+    <h3>Histórico de compras</h3><br>
+
+
+    <div class="w3-row w3-padding-64" id="about">
+
+        <table class="w3-table" style="">
+            <thead>
+                <tr style="padding: 8px; text-align: center; border-bottom: 3px solid #ddd;">
+                    <th style="text-align: center;">Produto</th>
+                    <th style="text-align: center;">Preço unitário</th>
+                    <th style="text-align: center;">Quantidade</th>
+                    <th style="text-align: center;">Preço total</th>
+                    <th style="text-align: center;">data da compra</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                {% for compra in compras %}
+                <tr style=" border-bottom: 3px solid #ddd; align-items:center; align-content:center;">
+                    <td style="text-align: center;"><img style ="height:80px;"  id="base64Image" src="{{compra.get('imagemProduto')}}" alt="Base64 Image" ></td>
+                    <td style="text-align: center;">{{compra.precoUnitario}} €</td>
+                    <td style="text-align: center;">{{compra.quantidade}}</td>
+                    <td style="text-align: center;">{{compra.precototal}} €</td>
+                    <td style="text-align: center;">{{compra.dataVenda}} €</td>
+                    
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

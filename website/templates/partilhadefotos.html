@@ -1,0 +1,124 @@
+{% extends "index.html" %}
+{% block title%}produtos{% endblock %}
+
+
+{% include "menu.html"%}
+
+{% block content %}
+
+
+<style>
+    /* Estilos para a modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+    }
+
+    /* Estilos para o conteúdo da modal */
+    .modal-content {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        max-width: 400px;
+        margin: 0 auto;
+        margin-top: 100px;
+        padding: 20px;
+    }
+
+    /* Estilos para o botão de fechar a modal */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<h1>Partilha de fotos</h1>
+
+<!-- Botão para abrir a modal -->
+<button id="abrirModal">Carregar Foto</button><br>
+
+<!-- Modal para upload de foto -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="fecharModal">&times;</span>
+        <h2>Upload de Foto</h2>
+        <form action="{{url_for('views.partilhar_foto')}}" method="post">
+            <label for="img">inserir Imagem:</label>
+            <input type="file" id="imagem" class="imagem" name="imagem" accept="image/*" onchange="handleFileChange()" required>
+            <input type="hidden" id="imagemProduto" name="imagemProduto">
+            <input type="submit" value="Enviar Foto">
+        </form>
+    </div>
+</div>
+
+
+
+
+<div class="w3-row-padding ">
+    {% for foto in fotos %}
+      <div class="w3-col l3 m6 w3-margin-bottom" >
+        <div style="border:1px solid #f1f1f1;">
+        <a href="/respostas/{{foto.get('idFoto')}}">
+          <div id ="foto" class="" style="background-image:url({{foto.get('foto')}}); height:260px; background-size:contain; background-repeat:no-repeat; background-position:center;" ></div>
+        </a>
+          <div class="w3-container w3-light-grey">
+            <form action="{{url_for('views.resposta_foto')}}" method="post">
+                <label for="img">inserir o nome:</label>
+                <input type="text" id="resposta" name="resposta"  required>
+                <input type="hidden" id="imagemProduto" name="imagemProduto">
+                <input type="submit" value="Enviar">
+                <input type="hidden" name="idFoto" id="idFoto" value="{{foto.idFoto}}">
+            </form>
+          </div>
+          
+        </div>
+      </div>
+
+      
+    {% endfor %}
+    
+  </div>
+
+
+
+
+
+<script>
+    // JavaScript para mostrar/ocultar a modal
+    document.getElementById("abrirModal").onclick = function() {
+        document.getElementById("modal").style.display = "block";
+    }
+
+    document.getElementById("fecharModal").onclick = function() {
+        document.getElementById("modal").style.display = "none";
+    }
+
+    function handleFileChange(){
+        const fileInput = document.getElementById('imagem');
+        
+        const file = fileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const base64String = e.target.result;
+                document.getElementById('imagemProduto').value = base64String;
+            };
+    
+            reader.readAsDataURL(file);
+        } else {
+            fileInfo.textContent = "Nenhum arquivo selecionado.";
+        }
+       }
+
+
+</script>
+  {% endblock %}

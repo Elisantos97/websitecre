@@ -1,0 +1,166 @@
+{% extends "index.html" %}
+{% block title%}home{% endblock %}
+
+{% include "menu.html"%}
+
+{% block content %}
+
+
+    <head>
+        <title>W3.CSS Template</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+        <style>
+            body {font-family: "Times New Roman", Georgia, Serif;}
+            h1, h2, h3, h4, h5, h6 {
+              font-family: "Playfair Display";
+              letter-spacing: 5px;
+            }
+        </style>
+    </head>
+    <body class="w3-light-grey">
+
+        <!-- Page Container -->
+        <div class="" style="margin-top:80px;">
+            <!-- The Grid -->
+            <div class="w3-row-padding">
+                <!-- Left Column -->
+                <div class="w3-third w3-card w3-white">
+                    <!-- ################################################### -->
+                    <!-- Slideshow Header -->
+                    <div class="w3-container" id="apartment">
+                        <div class="w3-display-container mySlides">
+                            <img src="{{produto.get('imagemProduto')}}" style="width:100%;margin-bottom:-6px">
+                        </div>
+                        {% for imagem in imagens %}
+                        <div class="w3-display-container mySlides">
+                            <img src="{{imagem.get('imagem')}}" style="width:100%;margin-bottom:-6px">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="w3-row-padding w3-section">
+                        <div class="w3-col s3">
+                            <img class="demo w3-opacity w3-hover-opacity-off" src="{{produto.get('imagemProduto')}}" style="width:100%;cursor:pointer" onclick="currentDiv(1)" title="Living room">
+                        </div>
+                        {% for imagem in imagens %}
+                        <div class="w3-col s3">
+                            <img class="demo w3-opacity w3-hover-opacity-off" src="{{imagem.get('imagem')}}" style="width:100%;cursor:pointer" onclick="currentDiv({{imagem.get('ind')}})" title="Dining room">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- ################################################### -->
+                    <!-- End Left Column -->
+                </div>
+                <!-- Right Column -->
+                <div class="w3-twothird">
+                    
+                    <div class="w3-container w3-card w3-white w3-margin-bottom">
+
+                        <!-- Contact -->
+                        <div class="w3-container" id="contact" style="padding-top:90px;">
+                            <form action="{{url_for('views.adicionar_carrinho')}}" method="POST">
+                                <p><span>Preço: <span id="preco" style="margin-left:40px;">{{produto.precoProduto}}</span> €</span></p>
+                                <div style="display:flex; justify-content:flex-start; align-items: center; column-gap:20px;">
+                                   <span>Quantidade: </span> <input class="w3-input w3-border" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Quantidade" required name="quantidade" id="quantidade" style="width:150px;">
+                                </div>
+                                <p><span id="" >Total: <span id="total" > </span> €</span></p>
+                                <input type="hidden" id="precoTotal" name="precoTotal" value=""/>
+                                <input type="hidden" id="precoUnitario" name="precoUnitario" value="{{precoUnitario}}"/>
+                                <input type="hidden" id="idProduto" name="idProduto" value="{{produto.idProduto}}"/>
+                                <button type="submit" class="w3-button w3-green w3-third">Adicionar ao carrinho</button>
+                               
+                            </form>
+                        </div>
+                        
+                        <div class="row" style="margin-top: 20px;">
+                            {% for prod in prod_relacionado %}
+                                {% for produt in produtos %}
+                                    {% if prod.get('idProduto_relacionado') == produt.get('idProduto')%}
+                                        <!-- Earnings (Monthly) Card Example -->
+                                        <div class="col-xl-3 col-md-6 mb-4">                      
+                                            <div class="card border-left-info shadow h-100 py-2">
+                                                <a href="/produto/{{produt.get('idProduto')}}">
+                                                    <div class="card-body" style="background-image:url({{produt.get('imagemProduto')}}); background-size:contain; background-position:center; background-repeat:no-repeat;">                              
+                                                    </div>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../static/js/jquery/jquery.min.js"></script>
+        <script>
+            // Script to open and close sidebar when on tablets and phones
+            function w3_open() {
+                document.getElementById("mySidebar").style.display = "block";
+                document.getElementById("myOverlay").style.display = "block";
+            }
+            
+            function w3_close() {
+                document.getElementById("mySidebar").style.display = "none";
+                document.getElementById("myOverlay").style.display = "none";
+            }
+
+            // Slideshow Apartment Images
+            var slideIndex = 1;
+            showDivs(slideIndex);
+
+            function plusDivs(n) {
+                showDivs(slideIndex += n);
+            }
+
+            function currentDiv(n) {
+                showDivs(slideIndex = n);
+            }
+
+            function showDivs(n) {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                var dots = document.getElementsByClassName("demo");
+                if (n > x.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = x.length}
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+                }
+                x[slideIndex-1].style.display = "block";
+                dots[slideIndex-1].className += " w3-opacity-off";
+            }
+            $(document).ready(function(){
+                
+                $("#quantidade").val(1);
+                var preco = $("#preco").text();
+                var quantidade = $("#quantidade").val();
+                var precototal = preco*quantidade;
+                $("#total").text(precototal);
+                $("#precoTotal").val(precototal);
+                $("#precoUnitario").val(preco);
+
+               $("#quantidade").on("keyup",function(){
+                var quantidade =  $("#quantidade").val();
+                var preco = $("#preco").text();
+                var total = preco * quantidade;
+                $("#total").text(total);
+                $("#precoTotal").val(total);
+
+
+               
+               });
+            })
+        </script>
+
+    </body>
+{% endblock %}

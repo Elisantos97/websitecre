@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+{% block title%}produtos{% endblock %}
+
+
+{% include "menu.html"%}
+
+{% block content %}
+
+
+
+<div class="w3-row-padding ">
+    {% for produto in produtos %}
+      <div class="w3-col l3 m6 w3-margin-bottom" >
+        <div style="border:1px solid #f1f1f1;">
+          <div class="" style="background-image:url({{produto.get('imagemProduto')}}); height:260px; background-size:contain; background-repeat:no-repeat; background-position:center;" >
+            
+          </div>
+          <div class="w3-container w3-light-grey">
+            <h5 style="letter-spacing: 0px;">{{produto.get('nomeProduto')}}</h5>
+            <p class="w3-opacity">{{produto.get('precoProduto')}} €</p>
+            <a href="/produto/{{produto.get('idProduto')}}"> <button class="w3-button  w3-block" style=" background-color:#4caf50; color:white;">Adicionar</button></a>
+          </div>
+          
+        </div>
+      </div>
+    {% endfor %}
+    
+  </div>
+
+  {% endblock %}

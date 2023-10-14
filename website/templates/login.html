@@ -1,0 +1,75 @@
+
+{% extends "index.html" %}
+{% block title%}produtos{% endblock %}
+
+{% include "menu.html"%}
+
+{% block content %}
+
+
+<style>
+  body {font-family: "Times New Roman", Georgia, Serif;}
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display";
+    letter-spacing: 5px;
+  }
+  </style>
+  </head>
+      <body>
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+              messages %} {% for category, message in messages %} {% if category ==
+              'error' %}
+              <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {% else %}
+              <div class="alert alert-success alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {% endif %} {% endfor %} {% endif %} {% endwith %}
+  
+          <div class="w3-row w3-padding-64" id="about">
+              <div class="w3-col m6 w3-padding-large">
+                                  <!-- Contact Section -->
+                  <div class="w3-container w3-padding-64" id="contact">
+                      <h1>Login</h1><br>
+                      <form action="/login" method="post">
+                      <p><input class="w3-input w3-padding-16" type="email" placeholder="email" required name="email"></p>
+                      <p><input class="w3-input w3-padding-16" type="password" placeholder="password" required name="password"></p>
+                      <p><button class="w3-button w3-light-grey w3-section" type="submit">Login</button></p>
+                      </form>
+                  </div>
+          
+              </div>
+          
+              <div class="w3-col m6 w3-padding-large">
+                                  <!-- Contact Section -->
+                  <div class="w3-container w3-padding-64" id="contact">
+                      <h1>Registar</h1><br>
+                      <form action="/signup" method="POST">
+                      <p><input class="w3-input w3-padding-16" type="text" placeholder="nome" required name="nome"></p>
+                      <p><input class="w3-input w3-padding-16" type="email" placeholder="email" required name="email"></p>
+                      <p><input class="w3-input w3-padding-16" type="password" placeholder="password" required name="password1"></p>
+                      <p><input class="w3-input w3-padding-16" type="password" placeholder="confirmar password" required name="password2"></p>
+                      <p><button class="w3-button w3-light-grey w3-section" type="submit">Registar</button></p>
+                      </form>
+                  </div>
+          
+              </div>
+            </div>
+  
+  
+  
+
+  
+      </body>
+
+
+
+      {% endblock %}

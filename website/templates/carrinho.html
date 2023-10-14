@@ -1,0 +1,80 @@
+{% extends "index.html" %}
+{% block title%}produtos{% endblock %}
+
+{% include "menu.html"%}
+
+{% block content %}
+
+
+<div class="w3-content" style="max-width:1100px; margin-bottom:400px;" >
+
+
+    <div class="w3-row w3-padding-64" id="about">
+
+        <table class="w3-table" style="">
+            <thead>
+                <tr style="padding: 8px; text-align: center; border-bottom: 3px solid #ddd;">
+                    <th style="text-align: center;">Produto</th>
+                    <th style="text-align: center;">Preço unitário</th>
+                    <th style="text-align: center;">Quantidade</th>
+                    <th style="text-align: center;">Preço total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                {% for produto in lista_carrinho %}
+                <tr style=" border-bottom: 3px solid #ddd; align-items:center; align-content:center;">
+                    <td style="text-align: center;"><img style ="height:80px;"  id="base64Image" src="{{produto.get('imagemProduto')}}" alt="Base64 Image" ></td>
+                    <td style="text-align: center;">{{produto.precoUnitario}} €</td>
+                    <td style="text-align: center;">{{produto.quantidade}}</td>
+                    <td style="text-align: center;">{{produto.precoTotal}} €</td>
+                    <td style="text-align: center;"><a href="/apagar_produto/{{produto.get('idCarrinho')}}" class=""><i class="material-icons apagar" style="font-size:20px;color:grey">delete</i><a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center;"> Total a pagar</td>
+                    <td style="text-align: center;">{{valor_total}} €</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <form action="{{url_for('views.finalizar_compra')}}" method="POST">
+                            <input type="hidden" id="valor_total" name="valor_total" value="{{valor_total}}"/>
+                            <button type="submit" class="w3-button w3-green">Finalizar compra</button>
+                        </form>
+                    </td>
+                    <td></td>
+                </tr>
+
+              </tfoot>
+
+        </table>
+
+    </div>
+
+</div>
+<script src="../static/js/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        
+        $(".apagar").mouseover(function(){
+            $(".apagar").css("color", "red");
+          });
+    })
+</script>
+
+  {% endblock %}
+
+
+
+
