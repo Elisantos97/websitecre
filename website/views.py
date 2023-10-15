@@ -168,7 +168,7 @@ def adicionar_carrinho():
 
 
 
-        dados = {"idProduto": int(idProduto),"idCliente": idCliente, "quantidade": int(quantidade), "precoUnitario": 10, "precoTotal": int(precoTotal)}
+        dados = {"idProduto": int(idProduto),"idCliente": idCliente, "quantidade": int(quantidade), "precoUnitario": float(precoUnitario), "precoTotal": float(precoTotal)}
         print(dados)
         api=requests.post(url6, json=dados)
 
